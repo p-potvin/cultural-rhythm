@@ -169,15 +169,18 @@ export default function CountryPanel({ countries, onClose, onCloseAll }: Country
             {isChartsCollapsed ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />}
           </button>
           
-          <AnimatePresence initial={false}>
+          <AnimatePresence>
             {!isChartsCollapsed && (
               <motion.div 
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
-                <Charts countries={countries} />
+                <div className="pt-2">
+                  <Charts countries={countries} />
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

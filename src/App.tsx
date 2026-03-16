@@ -45,7 +45,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans overflow-hidden selection:bg-indigo-100 dark:selection:bg-indigo-900 selection:text-indigo-900 dark:selection:text-indigo-100 transition-colors duration-300">
+    <div className={`min-h-screen bg-[#f8fafc] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans overflow-hidden selection:bg-indigo-100 dark:selection:bg-indigo-900 selection:text-indigo-900 dark:selection:text-indigo-100 transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
       {/* Floating Header */}
       <header className="absolute top-0 left-0 right-0 h-20 px-8 flex items-center justify-between z-40 bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border-b border-white/50 dark:border-white/10 shadow-sm">
         <div className="flex items-center gap-4">
@@ -74,17 +74,31 @@ export default function App() {
       {/* Main Content Area */}
       <main className="flex-1 flex overflow-hidden relative pt-20">
         {/* Left Sidebar: Rankings */}
-        <div className="relative flex h-full">
+        <div className="relative flex h-full group">
           <motion.div
-            animate={{ width: isRankingsCollapsed ? 0 : 340, opacity: isRankingsCollapsed ? 0 : 1 }}
+            animate={{ width: isRankingsCollapsed ? 40 : 340, opacity: 1 }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="overflow-hidden h-full"
+            className={`h-full relative ${isRankingsCollapsed ? 'cursor-pointer hover:bg-slate-200/30 dark:hover:bg-slate-800/30 transition-colors' : ''}`}
+            onClick={() => isRankingsCollapsed && setIsRankingsCollapsed(false)}
           >
-            <TopRankings onSelect={handleSelectCountry} selectedIds={selectedCountries.map(c => c.id)} />
+            <div className={isRankingsCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100 transition-opacity duration-300'}>
+              <TopRankings onSelect={handleSelectCountry} selectedIds={selectedCountries.map(c => c.id)} />
+            </div>
+            
+            {isRankingsCollapsed && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="rotate-90 whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
+                  Global Rankings
+                </div>
+              </div>
+            )}
           </motion.div>
           
           <button
-            onClick={() => setIsRankingsCollapsed(!isRankingsCollapsed)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsRankingsCollapsed(!isRankingsCollapsed);
+            }}
             className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-full flex items-center justify-center z-50 shadow-md hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
           >
             {isRankingsCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}

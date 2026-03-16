@@ -78,35 +78,38 @@ export default function Charts({ countries }: ChartsProps) {
       {/* Chart 1: Hustle vs Rest */}
       <div>
         {renderHeader('hustle', 'The Hustle vs. Rest Ratio', 'Hours spent on paid work vs. sleep per day.')}
-        <AnimatePresence initial={false}>
+        <AnimatePresence>
           {!collapsedCharts['hustle'] && (
             <motion.div 
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
+              animate={{ height: 224, opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="h-56 w-full overflow-hidden"
+              transition={{ duration: 0.3 }}
+              className="w-full overflow-hidden"
             >
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={workSleepData} layout="vertical" margin={{ top: 0, right: 0, left: 40, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="colorWork" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.9}/>
-                      <stop offset="95%" stopColor="#e11d48" stopOpacity={0.9}/>
-                    </linearGradient>
-                    <linearGradient id="colorSleep" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.9}/>
-                      <stop offset="95%" stopColor="#4f46e5" stopOpacity={0.9}/>
-                    </linearGradient>
-                  </defs>
-                  <XAxis type="number" hide domain={[0, 24]} />
-                  <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }} />
-                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(248, 250, 252, 0.1)' }} />
-                  <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-                  <Bar dataKey="Work" stackId="a" fill="url(#colorWork)" radius={[4, 0, 0, 4]} barSize={24} />
-                  <Bar dataKey="Sleep" stackId="a" fill="url(#colorSleep)" />
-                  <Bar dataKey="Other" stackId="a" fill="rgba(241, 245, 249, 0.1)" radius={[0, 4, 4, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
+              <div className="h-56 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={workSleepData} layout="vertical" margin={{ top: 0, right: 0, left: 40, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorWork" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.9}/>
+                        <stop offset="95%" stopColor="#e11d48" stopOpacity={0.9}/>
+                      </linearGradient>
+                      <linearGradient id="colorSleep" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.9}/>
+                        <stop offset="95%" stopColor="#4f46e5" stopOpacity={0.9}/>
+                      </linearGradient>
+                    </defs>
+                    <XAxis type="number" hide domain={[0, 24]} />
+                    <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }} />
+                    <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(248, 250, 252, 0.1)' }} />
+                    <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+                    <Bar dataKey="Work" stackId="a" fill="url(#colorWork)" radius={[4, 0, 0, 4]} barSize={24} />
+                    <Bar dataKey="Sleep" stackId="a" fill="url(#colorSleep)" />
+                    <Bar dataKey="Other" stackId="a" fill="rgba(241, 245, 249, 0.1)" radius={[0, 4, 4, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -115,33 +118,36 @@ export default function Charts({ countries }: ChartsProps) {
       {/* Chart 2: Leisure Comparison */}
       <div>
         {renderHeader('leisure', 'Leisure Time (Hours/Day)')}
-        <AnimatePresence initial={false}>
+        <AnimatePresence>
           {!collapsedCharts['leisure'] && (
             <motion.div 
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
+              animate={{ height: 248, opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="h-56 w-full mt-6 overflow-hidden"
+              transition={{ duration: 0.3 }}
+              className="w-full overflow-hidden"
             >
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={leisureData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="colorLeisure" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.9}/>
-                      <stop offset="95%" stopColor="#059669" stopOpacity={0.9}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(241, 245, 249, 0.1)" />
-                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }} dy={10} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(248, 250, 252, 0.1)' }} />
-                  <Bar dataKey="Leisure" fill="url(#colorLeisure)" radius={[6, 6, 0, 0]} barSize={40}>
-                    {leisureData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+              <div className="h-56 w-full mt-6">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={leisureData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorLeisure" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.9}/>
+                        <stop offset="95%" stopColor="#059669" stopOpacity={0.9}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(241, 245, 249, 0.1)" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }} dy={10} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                    <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(248, 250, 252, 0.1)' }} />
+                    <Bar dataKey="Leisure" fill="url(#colorLeisure)" radius={[6, 6, 0, 0]} barSize={40}>
+                      {leisureData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -150,35 +156,38 @@ export default function Charts({ countries }: ChartsProps) {
       {/* Chart 3: Cultural Structure */}
       <div>
         {renderHeader('care', 'Unpaid Care Work', 'Hours per day by gender.')}
-        <AnimatePresence initial={false}>
+        <AnimatePresence>
           {!collapsedCharts['care'] && (
             <motion.div 
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
+              animate={{ height: 256, opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="h-64 w-full overflow-hidden"
+              transition={{ duration: 0.3 }}
+              className="w-full overflow-hidden"
             >
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={careData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="colorFemale" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#d946ef" stopOpacity={0.9}/>
-                      <stop offset="95%" stopColor="#c026d3" stopOpacity={0.9}/>
-                    </linearGradient>
-                    <linearGradient id="colorMale" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#94a3b8" stopOpacity={0.9}/>
-                      <stop offset="95%" stopColor="#64748b" stopOpacity={0.9}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(241, 245, 249, 0.1)" />
-                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }} dy={10} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(248, 250, 252, 0.1)' }} />
-                  <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-                  <Bar dataKey="Female" fill="url(#colorFemale)" radius={[6, 6, 0, 0]} barSize={32} />
-                  <Bar dataKey="Male" fill="url(#colorMale)" radius={[6, 6, 0, 0]} barSize={32} />
-                </BarChart>
-              </ResponsiveContainer>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={careData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorFemale" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#d946ef" stopOpacity={0.9}/>
+                        <stop offset="95%" stopColor="#c026d3" stopOpacity={0.9}/>
+                      </linearGradient>
+                      <linearGradient id="colorMale" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#94a3b8" stopOpacity={0.9}/>
+                        <stop offset="95%" stopColor="#64748b" stopOpacity={0.9}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(241, 245, 249, 0.1)" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }} dy={10} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                    <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(248, 250, 252, 0.1)' }} />
+                    <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+                    <Bar dataKey="Female" fill="url(#colorFemale)" radius={[6, 6, 0, 0]} barSize={32} />
+                    <Bar dataKey="Male" fill="url(#colorMale)" radius={[6, 6, 0, 0]} barSize={32} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

@@ -5,6 +5,7 @@ import TopRankings from './components/TopRankings';
 import { CountryData } from './types';
 import { Globe2, Sparkles, Moon, Sun, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import ThemePicker from './components/ThemePicker';
 
 export default function App() {
   const [selectedCountries, setSelectedCountries] = useState<CountryData[]>([]);
@@ -58,12 +59,7 @@ export default function App() {
         </div>
         
         <div className="flex items-center gap-4">
-          <button 
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-2.5 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-white/50 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-sm"
-          >
-            {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-          </button>
+          <ThemePicker isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
           <div className="hidden sm:flex items-center gap-2 text-xs text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50/80 dark:bg-indigo-900/30 px-4 py-2 rounded-full border border-indigo-100/50 dark:border-indigo-500/20 shadow-sm backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Powered by OWID & Open-Meteo</span>

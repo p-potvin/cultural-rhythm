@@ -1,11 +1,5 @@
-# cultural-rhythm
+# VaultWares Agent Protocol
+See `vaultwares-docs/AGENTS.md` for the Tier 1 Single Source of Truth for VaultWares projects. This repository uses the standard `vaultwares-agentciation` and `vault-themes` submodules for interface compliance.
 
-> For company-wide rules, read `vaultwares-docs/AGENTS.md` first.
-
-<!-- VAULT-THEMES-SUBMODULE:START -->
-## vault-themes Submodule
-
-Before UI, branding, or token work, read:
-- `vault-themes/AGENTS.md`
-- `vault-themes/CONTEXT.md`
-<!-- VAULT-THEMES-SUBMODULE:END -->
+# Agent Ledger
+Record completed work exactly as per the ledger protocol BEFORE replying to the user.
